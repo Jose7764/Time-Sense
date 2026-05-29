@@ -6,6 +6,8 @@ import {
   generateColorSet,
   hsbToCss
 } from "@/lib/colors";
+import MemoryDotsGame from "@/components/MemoryDotsGame";
+import MotionPredictionGame from "@/components/MotionPredictionGame";
 
 const difficulties = [
   { id: "easy", label: "Facil", time: 5, description: "5 segundos" },
@@ -28,7 +30,7 @@ export default function HomePage() {
         <header className="flex flex-wrap items-center justify-between gap-4 border-b border-[#d8d1c2] pb-5">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-teal-700">
-              Jogos de percepcao
+              Perception Lab
             </p>
             <h1 className="mt-2 text-3xl font-bold sm:text-5xl">
               Desafios rapidos de precisao
@@ -48,6 +50,8 @@ export default function HomePage() {
         {!selectedGame && <GameSelection onSelect={setSelectedGame} />}
         {selectedGame === "colors" && <ColorMemoryGame />}
         {selectedGame === "timer" && <TimerGame />}
+        {selectedGame === "dots" && <MemoryDotsGame />}
+        {selectedGame === "motion" && <MotionPredictionGame />}
       </section>
     </main>
   );
@@ -55,7 +59,8 @@ export default function HomePage() {
 
 function GameSelection({ onSelect }) {
   return (
-    <div className="grid flex-1 items-center gap-5 py-10 md:grid-cols-2">
+    <div className="flex flex-1 items-center justify-center py-8">
+      <div className="grid w-full max-w-5xl items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <GameCard
         title="Jogo de memoria de cores"
         description="Memorize uma cor por vez e tente recria-la com matiz, saturacao e brilho."
@@ -70,24 +75,39 @@ function GameSelection({ onSelect }) {
         buttonLabel="Jogar tempo"
         onClick={() => onSelect("timer")}
       />
+      <GameCard
+        title="Memory Dots"
+        description="Memorize a ordem em que as bolinhas aparecem e clique nelas na sequencia correta."
+        detail="Sequencia infinita"
+        buttonLabel="Jogar dots"
+        onClick={() => onSelect("dots")}
+      />
+      <GameCard
+        title="Motion Prediction"
+        description="Observe um objeto em movimento, espere ele sumir e clique onde ele deveria estar."
+        detail="12 rodadas / 100 pontos cada"
+        buttonLabel="Jogar movimento"
+        onClick={() => onSelect("motion")}
+      />
+      </div>
     </div>
   );
 }
 
 function GameCard({ title, description, detail, buttonLabel, onClick }) {
   return (
-    <article className="flex min-h-72 flex-col justify-between rounded-lg border border-[#d8d1c2] bg-white/75 p-6 shadow-sm">
-      <div>
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-teal-700">
+    <article className="flex h-full min-h-[260px] flex-col rounded-lg border border-[#d8d1c2] bg-white/75 p-5 shadow-sm">
+      <div className="flex flex-1 flex-col">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-teal-700">
           {detail}
         </p>
-        <h2 className="mt-3 text-2xl font-bold">{title}</h2>
-        <p className="mt-4 leading-7 text-[#4c5a54]">{description}</p>
+        <h2 className="mt-3 text-xl font-bold leading-tight">{title}</h2>
+        <p className="mt-3 text-sm leading-6 text-[#4c5a54]">{description}</p>
       </div>
       <button
         type="button"
         onClick={onClick}
-        className="mt-8 inline-flex h-12 items-center justify-center rounded-md bg-teal-700 px-6 font-bold text-white shadow-sm transition hover:bg-teal-800 focus:outline-none focus:ring-4 focus:ring-teal-200"
+        className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-md bg-teal-700 px-4 text-sm font-bold text-white shadow-sm transition hover:bg-teal-800 focus:outline-none focus:ring-4 focus:ring-teal-200"
       >
         {buttonLabel}
       </button>

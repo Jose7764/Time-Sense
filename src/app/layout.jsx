@@ -1,8 +1,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Memoria Cromatica",
-  description: "Jogo de memoria de cores com controles HSB."
+  title: "Perception Lab",
+  description: "Mini jogos de memoria, tempo e percepcao."
 };
 
 export default function RootLayout({ children }) {
